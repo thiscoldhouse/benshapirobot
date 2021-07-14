@@ -17,7 +17,7 @@ QUOTES = [
 ]
 FOOTNOTE = "^(I'm a bot. My purpose is to contextualize--and poke some light-hearted fun at--Ben Shapiro to counteract the social media pipeline that sends people his way. I'm part of a project that uses technology to better understand Ben and other right wing grifters. More at /r/AuthoritarianMoment)"
 
-TEMPLATE = "I saw that you mentioned Ben Shapiro. In case you don't know, Ben Shapiro is a grifter and a hack. If you find anything he's said compelling, you should keep in mind he also says things like this:\n\n>{QUOTE}"
+TEMPLATE = "I saw that you mentioned Ben Shapiro. In case some of you don't know, Ben Shapiro is a grifter and a hack. If you find anything he's said compelling, you should keep in mind he also says things like this:\n\n>{QUOTE}"
 
 SHITPOST_THRESHOLD = 2
 SHITPOSTS = [
