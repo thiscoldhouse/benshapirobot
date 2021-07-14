@@ -38,7 +38,6 @@ def reply_if_appropriate(comment):
     ALREADY_REPLIED.add(comment.link_id)
     result = comment.reply(message)
     print(f'Made comment {result.permalink}')
-    import pdb; pdb.set_trace()
     return result
 
 
