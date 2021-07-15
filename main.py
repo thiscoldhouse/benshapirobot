@@ -19,6 +19,12 @@ FOOTNOTE = "^(I'm a bot. My purpose is to contextualize--and poke some light-hea
 
 TEMPLATE = "I saw that you mentioned Ben Shapiro. In case some of you don't know, Ben Shapiro is a grifter and a hack. If you find anything he's said compelling, you should keep in mind he also says things like this:\n\n>{QUOTE}"
 
+BAD_BOT_REPLIES = [
+    "So much for the tolerant left.",
+    "Straw men are easier to knock down than real arguments.",
+    "Millenial snowflake offended by the truth.",
+]
+
 SHITPOST_THRESHOLD = 2
 SHITPOSTS = [
     "Facts don't care about your feelings.",
@@ -28,12 +34,17 @@ SHITPOSTS = [
     "Another liberal DESTROYED.",
 ]
 
+EXCLUDED_USERS = [
+    'automoderator', 'sneakpeekbot',
+]
 EXCLUDED_SUBS = [
     'benshapiro', 'conservative',
+    # banned
+    'whatisthisbug', 'KUWTK', 'okbuddyretard',
     # too frequent:
     'redscarepod',
     # karma requirements:
-    'centrist', 'bravorealhousewives'
+    'centrist', 'bravorealhousewives', 'toiletpaperusa', 'librandu'
 ]
 
 
@@ -61,7 +72,7 @@ def reply_if_appropriate(comment, message_type):
         return
 
     if comment.author is not None:
-        if comment.author.name.lower() == 'automoderator':
+        if comment.author.name.lower() in EXCLUDED_USERS:
             return
 
     message = None
@@ -79,6 +90,10 @@ def reply_if_appropriate(comment, message_type):
         message = "Why won't you debate me?"
     elif message_type == 'SHITPOST':
         message = random.choice(SHITPOSTS)
+    elif message_type == 'GOOD-BOT-REPLY':
+        message = "Thank you for your facts and logic."
+    elif message_type == 'BAD-BOT-REPLY':
+        message = random.choice(BAD_BOT_REPLIES)
     else:
         raise ValueError(f'Invalid message_type {message_type}')
 
@@ -96,9 +111,19 @@ def challenge_responders_to_debate(r):
         if i > 5:
             break
         for reply in comment.replies:
-            results.append(
-                reply_if_appropriate(reply, 'DEBATE-ME')
-            )
+            if 'good bot' in str(comment.body).lower():
+                results.append(
+                    reply_if_appropriate(reply, 'GOOD-BOT-REPLY')
+                )
+            elif 'bad bot' in str(comment.body).lower():
+                results.append(
+                    reply_if_appropriate(reply, 'BAD-BOT-REPLY')
+                )
+
+            else:
+                results.append(
+                    reply_if_appropriate(reply, 'DEBATE-ME')
+                )
 
     return results
 
