@@ -45,90 +45,119 @@ BAD_BOT_REPLIES = [
 
 SHITPOSTS = {
     'NOVEL': [
-        """
-    Hawthorne was a bear of a man, six three in his bare feet and two hundred fifteen pounds in his underwear, with a graying blond crew cut and a face carved of granite. But he had plenty of smile lines. He just didn’t like showing those to people unless he knew them.
+        """Hawthorne was a bear of a man, six three in his bare feet and two hundred fifteen pounds in his underwear, with a graying blond crew cut and a face carved of granite. But he had plenty of smile lines. He just didn’t like showing those to people unless he knew them.
         """,
-        """
-Standing above him, glaring at him, was a behemoth, a black kid named Yard. Nobody knew his real name—everybody just called him Yard because he played on the school football team, stood six foot five, clocked in at a solid two hundred eighty pounds, and looked like he was headed straight for a lifetime of prison workouts. The coach loved him. Everybody else feared him.
+        """ Standing above him, glaring at him, was a behemoth, a black kid named Yard. Nobody knew his real name—everybody just called him Yard because he played on the school football team, stood six foot five, clocked in at a solid two hundred eighty pounds, and looked like he was headed straight for a lifetime of prison workouts. The coach loved him. Everybody else feared him.
         """,
-        """
-Brett didn’t care about that. He turned, irked—and found himself face-to-face with a beautiful young woman, about seventeen, staring aggressively at him.
+        """Brett didn’t care about that. He turned, irked—and found himself face-to-face with a beautiful young woman, about seventeen, staring aggressively at him.
         """,
         """Soledad Ramirez knew the value of good press, and she baked mean
 chocolate chip cookies. “No oatmeal raisin here,” she said good-naturedly,
 handing out the meltingly hot treats to the men wearing full military gear and
 carrying M4s set to burst.
         """,
-        """
-   Then he heard the voice.
+        """Then he heard the voice.
+
    “Hey, pig,” it said. The voice wasn’t deep. It was the voice of a child. And the
 kid stood outside the door of the quick mart, legs spread, arms hanging down by
 his sides. A cute black kid, wearing a Simpsons T-shirt and somebody’s old
 Converse sneakers and baggy jeans.
+
    On his hip, stuck in those baggy jeans, was a pistol.
+
    It looked like a pistol, anyway. But O’Sullivan couldn’t see clearly. The light
 wasn’t right. He could see the bulge, but not the object.
+
    O’Sullivan put his flashlight back in his belt and put his hand back on his
 pistol, the greasy handle still warm to the touch.
+
    “Stop right there, pig,” the kid said. His hand began to creep down toward his
 waistband.
+
    O’Sullivan pulled the gun out of its holster, leveling it at the kid. “Put your
 hands above your head. Do it now!”
+
    “Fuck you, honky,” the kid shot back. “Get the fuck out of my neighborhood.”
 Then he laughed, a cute kid’s laugh. O’Sullivan looked for sympathy behind
 those eyes, found none.
+
    Oh, shit, O’Sullivan thought. Then he said, “Hands up. Right now.”
+
    The kid laughed again, a musical tinkling noise. “You ain’t gonna shoot me,
 pig. What, you afraid of a kid?”
+
    O’Sullivan could feel every breath as it entered his lungs. “No, kid, I don’t
 want to shoot you,” he said. “But I need you to cooperate. Put your hands above
 your head. Right now.”
+
    The kid’s hand shifted to his waistband again. O’Sullivan’s hands began to
 shake.
+
    “Get the fuck out of my neighborhood,” the kid repeated.
+
    O’Sullivan looked around stealthily. Still nobody on the street. Totally empty.
 The sweat on his forehead felt cold in the night air. In the retraining sessions at
 the station, they’d told officers to remember the nasty racial legacy of the
 department, be aware of the community’s justified suspicion of police. Right
 now, all O’Sullivan was thinking about was getting this kid with the empty eyes
 to back the fuck off.
+
    “Go on home,” he said.
+
    “You go home, white boy,” said the kid. His hand moved lower.
+
    Suddenly, O’Sullivan’s head filled with a sudden clarity, his brain with a
 preternatural energy. He recognized the feel of the adrenaline hitting. He wasn’t
 going to get shot on the corner of Iowa and Van Dyke outside a shitty
 convenience store in a shitty town by some eight-year-old, bleed out in the gutter
 of some city the world left behind. He had a life, too.
+
    The gun felt alive in his hand. The gun was life.
+
    The muzzle was aimed dead at the kid’s chest. No way to miss, with the kid
 this close, just ten feet away maybe. Still cloaked in the shadow of the gas
 station overhang.
+
    “Kid, I’m not going to ask you again. I need you to put your hands on top of
 your head and get on your knees.”
+
    “Fuck you, motherfucker.”
+
    “I’m serious.”
+
    The kid’s hand was nearly inside his waistband now.
+
    “Don’t do that,” O’Sullivan said.
+
    The kid smiled, almost gently.
+
    “Don’t.”
+
    The kid’s smile broadened, the hand moved down into the pants. “Get the
 fuck out of my hood,” the kid cheerfully repeated. “I’ll cap your ass.”
+
    “Kid, I’m warning you,” O’Sullivan yelled. “Put your hands above your head!
 Do it now…”
+
    The roar shattered the night air, a sonic boom in the blackness. The shot blew
 the kid off his feet completely, knocked him onto his back.
+
    O’Sullivan reached for his radio, mechanically reported it: “Shots fired,
 officer needs help at the gas station on Iowa and Van Dyke.”
+
    “Ohgodohgodohgodohgod,” O’Sullivan repeated as he moved toward the
 body, the smoke rising from his Glock. He pointed it down at the kid again, but
 the boy wasn’t moving. The blood seeped through Homer Simpson’s face,
 pooled around the kid’s lifeless body. The grin had been replaced with a look of
 instantaneous shock. His hand had fallen out of his waistband with the force of
 the shooting.
+
    In it was a toy gun, the tip orange plastic.
+
    For a brief moment, O’Sullivan couldn’t breathe. When he looked up, he saw
 them coming. Dozens of them. The citizens of Detroit, coming out of the
 darkness, congregating. He could feel their eyes.
+
    Officer Ricky O’Sullivan sat down on the curb and began to cry.
         """
     ],
@@ -155,7 +184,9 @@ SHITPOST_THRESHOLD = 2
 
 options = ', '.join([o.lower() for o in SHITPOSTS.keys()])
 FOOTNOTE = f"""
-^(I'm a bot. My purpose is to contextualize--and poke some light-hearted fun at--Ben Shapiro to counteract the social media pipeline that sends people his way. I'm part of a project that uses technology to better understand Ben and other right wing grifters. /r/AuthoritarianMoment for more info, to request features, or to give feedback.)
+*****
+
+^(I'm a bot. My purpose is to contextualize--and poke some light-hearted fun at--Ben Shapiro to counteract the social media pipeline that sends people his way. I'm part of a project that uses technology to better understand Ben and other right wing grifters. /r/AuthoritarianMoment for more info, to request features, or to give feedback.) [^Opt ^out ^here.](https://www.reddit.com/r/AuthoritarianMoment/comments/olk6r2/click_here_to_optout_of_uthebenshapirobot/)
 
 
 ^(You can also summon me by mentioning /u/thebenshapirobot. Options: {options}, or just say whatever, see what you get.)
