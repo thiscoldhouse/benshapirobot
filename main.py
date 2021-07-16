@@ -51,13 +51,10 @@ Standing above him, glaring at him, was a behemoth, a black kid named Yard. Nobo
         """
 Brett didn’t care about that. He turned, irked—and found himself face-to-face with a beautiful young woman, about seventeen, staring aggressively at him.
         """,
-        """
-    The SWAT team didn't expect it the first time she brought them cookies.
-   Nobody brings the SWAT team cookies.
-   But Soledad Ramirez knew the value of good press, and she baked mean
+        """Soledad Ramirez knew the value of good press, and she baked mean
 chocolate chip cookies. “No oatmeal raisin here,” she said good-naturedly,
 handing out the meltingly hot treats to the men wearing full military gear and
-carrying M4s set to burst. “Don’t worry, they aren’t poisoned.”
+carrying M4s set to burst.
         """,
         """
    Then he heard the voice.
@@ -134,7 +131,7 @@ darkness, congregating. He could feel their eyes.
     ],
     'FEMINISM': [
         "This is what the radical feminist movement was proposing, remember? Women need a man the way a fish needs a bicycle... unless it turns out that they're little fish, then you might need another fish around to help take care of things.",
-        "Women kind of like having babies. This notion that women don't want to have babies is so bizarre. Has anyone ever met a 35 year old single woman? The vast majority of women who are 35 and single are not supremely happy.",
+        "Women kind of like having babies. This notion that women don't want to have babies is so bizarre. Has anyone even met a 35 year old single woman? The vast majority of women who are 35 and single are not supremely happy.",
     ],
     'PATRIOTISM': [
         "America was built on values that the left is fighting every single day to tear down.",
@@ -210,7 +207,7 @@ class BSBot():
             message = random.choice(SHITPOSTS[key])
 
         if key == 'NOVEL':
-            message = f'**An excerpt from True Allegiance:**\n\n\n{message}'
+            message = f'**An excerpt from True Allegiance, by Ben Shapiro:**\n\n\n{message}'
         elif key == 'TAUNT':
             pass
         else:
@@ -219,6 +216,9 @@ class BSBot():
         return message
 
     def should_shitpost(self, submission):
+        if random.random() > .9:
+            # shake things up!
+            return True
         i = 0
         me = praw.models.Redditor(self.r, name=secrets.USERNAME)
         for i, my_comment in enumerate(me.comments.new(limit=50)):
@@ -254,6 +254,9 @@ class BSBot():
         # elif message_type == 'P-WORD':
         #     message = P_WORD_MESSAGE
         elif message_type == 'DEBATE-ME':
+            if self.should_shitpost(comment.submission):
+                return self.reply_if_appropriate(comment, 'SHITPOST')
+
             message = "Why won't you debate me?"
         elif message_type in ('SHITPOST', 'SUMMONS'):
             message = self.get_shitpost_message(comment)
@@ -301,6 +304,7 @@ class BSBot():
 
 
     def main(self, subs='all'):
+        reply_on_next_loop = True
         for i, comment in enumerate(self.r.subreddit(subs).stream.comments()):
             if (
                     comment.author.name.lower() == secrets.USERNAME or
@@ -311,14 +315,21 @@ class BSBot():
             result = None
             if 'ben shapiro' in words:
                 result = self.reply_if_appropriate(comment, 'GENERIC')
+                reply_on_next_loop = True
+            elif reply_on_next_loop:
+                # avoids edge case of replying twice to someone because
+                # they mentioned "ben shapiro" in a reply
+                self.respond_to_replies()
+                self.respond_to_mentions()
+                reply_on_next_loop = False
 
             # elif 'pussy' in words:
             #     if random.random() > .9:
             #         result = self.reply_if_appropriate(comment, 'P-WORD')
 
-            if result is not None:
-                self.respond_to_replies()
-                self.respond_to_mentions()
+
+
+
 
 
 if __name__ == '__main__':
