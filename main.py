@@ -175,7 +175,7 @@ darkness, congregating. He could feel their eyes.
         "Trayvon Martin would have turned 21 today if he hadn't taken a man's head and beaten it on the pavement before being shot."
         ],
     'TAUNT': [
-        "If you like socialism so much why don't you go to North Korea?",
+        "If you like socialism so much why don't you go to Venezuela?",
         "Another liberal DESTROYED.",
     ]
 }
@@ -299,6 +299,8 @@ class BSBot():
             message = random.choice(GOOD_BOT_REPLIES)
         elif message_type == 'BAD-BOT-REPLY':
             message = random.choice(BAD_BOT_REPLIES)
+        elif message_type == 'REAL':
+            message = 'Yup, all of the quotes and excerpts this bot posts that are explicitly attributed to Ben Shapiro are real. It is hard to believe people take him seriously.'
         else:
             raise ValueError(f'Invalid message_type {message_type}')
 
@@ -338,6 +340,10 @@ class BSBot():
                 elif 'bad bot' in text:
                     results.append(
                         self.reply_if_appropriate(reply, 'BAD-BOT-REPLY')
+                    )
+                elif 'is this real' in text or "can't be real" in text:
+                    results.append(
+                        self.reply_if_appropriate(reply, 'REAL')
                     )
                 else:
                     results.append(
