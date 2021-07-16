@@ -19,5 +19,6 @@ ssh -t tad@tucker.ai "
                    /usr/src/venv/benshapirobot/bin/pip install -r /usr/src/benshapirobot/requirements.txt    &&
                    mv /tmp/reddit_config.json /usr/src/benshapirobot/  &&
                    sudo /bin/systemctl daemon-reload &&
-                   sudo /bin/systemctl restart benshapirobot"
+                   sudo /bin/systemctl restart benshapirobot &&
+                   sudo /bin/systemctl status benshapirobot"
 echo "Done"
