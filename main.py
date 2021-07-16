@@ -1,4 +1,7 @@
 import time
+import sys
+import json
+from prawcore.exceptions import Forbidden
 import praw
 import random
 
@@ -159,21 +162,14 @@ FOOTNOTE = f"""
 """
 
 # --------------- reddit config ---------------------------- #
+config = None
+with open('reddit_config.json') as f:
+    config = json.loads(f.read())
 
-EXCLUDED_USERS = [
-    'automoderator', 'sneakpeekbot',
-]
-EXCLUDED_SUBS = [
-    'benshapiro', 'conservative',
-    # banned
-    'whatisthisbug', 'KUWTK', 'okbuddyretard',
-    # too frequent:
-    'redscarepod',
-    # karma requirements:
-    'centrist', 'bravorealhousewives', 'toiletpaperusa', 'librandu'
-]
+EXCLUDED_USERS, EXCLUDED_SUBS = config['EXCLUDED_USERS'], config['EXCLUDED_SUBS']
 
-# ################################# actual code ########################################## #
+
+################################## actual code #################################
 
 class BSBot():
 
@@ -188,6 +184,14 @@ class BSBot():
         )
 
     # ---------- helpers -------------- #
+
+    def save_reddit_config(self):
+        config = {}
+        config['EXCLUDED_USERS'] = EXCLUDED_USERS
+        config['EXCLUDED_SUBS'] = EXCLUDED_SUBS
+        with open('reddit_config.json', 'w+') as f:
+            f.write(json.dumps(config))
+
 
     def clean_comment(self, comment):
         return ' '.join(w.lower() for w in comment.body.split())
@@ -268,8 +272,16 @@ class BSBot():
             raise ValueError(f'Invalid message_type {message_type}')
 
         message = '\n\n'.join((message, FOOTNOTE))
-        result = comment.reply(message)
-        print(f'Made comment {result.permalink}')
+        result = None
+        try:
+            result = comment.reply(message)
+            print(f'Made comment {result.permalink}')
+        except Forbidden as e:
+            EXCLUDED_SUBS.append(comment.subreddit.display_name)
+            self.save_reddit_config()
+            sys.stderr.write(
+                f'Found new banned subreddit {comment.subreddit.display_name}'
+            )
         return result
 
 
