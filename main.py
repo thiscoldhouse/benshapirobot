@@ -4,6 +4,7 @@ import json
 from prawcore.exceptions import Forbidden
 import praw
 import random
+import re
 
 import secrets
 
@@ -169,10 +170,13 @@ darkness, congregating. He could feel their eyes.
         "America was built on values that the left is fighting every single day to tear down.",
         "Judeo-Christian values made The West great.",
     ],
+    'CIVIL RIGHTS': [
+        'I don’t think the law has any role whatsoever in banning race-based discrimination by private actors',
+    ],
     'DUMB TAKES': [
         "Frankly, the term 'sexual orientation' needs to go. According to Webster's Dictionary, it implies the possibility of change in response to external stimuli. It is deeply offensive. I call on Webster's to free itself of its intellectual heteronormativity.",
         "Let’s say, for the sake of argument, that all of the water levels around the world rise by, let’s say, five feet or ten years over the next hundred years. It puts all the low-lying areas on the coast underwater. Let’s say all of that happens. You think that people aren’t just going to sell their homes and move?",
-        "Trayvon Martin would have turned 21 today if he hadn't taken a man's head and beaten it on the pavement before being shot."
+        "Trayvon Martin would have turned 21 today if he hadn't taken a man's head and beaten it on the pavement before being shot.",
         ],
     'TAUNT': [
         "If you like socialism so much why don't you go to Venezuela?",
@@ -180,7 +184,7 @@ darkness, congregating. He could feel their eyes.
     ]
 }
 
-SHITPOST_THRESHOLD = 2
+SHITPOST_THRESHOLD = 4
 
 options = ', '.join([o.lower() for o in SHITPOSTS.keys()])
 FOOTNOTE = f"""
@@ -192,19 +196,21 @@ FOOTNOTE = f"""
 ^(You can also summon me by mentioning /u/thebenshapirobot. Options: {options}, or just say whatever, see what you get.)
 """
 
-# --------------- reddit config ---------------------------- #
-config = None
-with open('reddit_config.json') as f:
-    config = json.loads(f.read())
-
-EXCLUDED_USERS, EXCLUDED_SUBS = config['EXCLUDED_USERS'], config['EXCLUDED_SUBS']
 
 
 ################################## actual code #################################
 
 class BSBot():
 
+    opt_out_regex = r'i .* have read and agree to the above terms and the enforecment thereof.'
+
     def __init__(self):
+        config = None
+        with open('reddit_config.json') as f:
+            config = json.loads(f.read())
+
+        self.EXCLUDED_USERS, self.EXCLUDED_SUBS = config['EXCLUDED_USERS'], config['EXCLUDED_SUBS']
+
         self.r = praw.Reddit(
             # TODO: move these into kwargs or something
             client_id=secrets.CLIENT_ID,
@@ -213,16 +219,45 @@ class BSBot():
             username=secrets.USERNAME,
             password=secrets.PASSWORD
         )
+        self.opt_out_submission = praw.models.Submission(self.r, id='olk6r2')
 
-    # ---------- helpers -------------- #
+    def am_i_author(self, comment):
+        if comment.author is not None:
+            if comment.author.name.lower() == secrets.USERNAME:
+                return True
+        return False
+
+    def handle_opt_outs(self):
+        replies = []
+        for comment in self.opt_out_submission.comments:
+            if comment.author is None:
+                continue
+            elif comment.author.name.lower() in self.EXCLUDED_USERS:
+                continue
+
+            already_replied = False
+            for reply in comment.replies:
+                if self.am_i_author(reply):
+                    already_replied = True
+                    break
+
+            if already_replied:
+                continue
+
+            if re.match(self.opt_out_regex, self.clean_comment(comment)):
+                self.EXCLUDED_USERS.append(comment.author.name.lower())
+                self.save_reddit_config()
+                replies.append(comment.reply('Confirmed'))
+            else:
+                replies.append(comment.reply("Facts don't care about your feelings"))
+        return replies
 
     def save_reddit_config(self):
         config = {}
-        config['EXCLUDED_USERS'] = EXCLUDED_USERS
-        config['EXCLUDED_SUBS'] = EXCLUDED_SUBS
+        config['EXCLUDED_USERS'] = self.EXCLUDED_USERS
+        config['EXCLUDED_SUBS'] = self.EXCLUDED_SUBS
         with open('reddit_config.json', 'w+') as f:
             f.write(json.dumps(config))
-
 
     def clean_comment(self, comment):
         return ' '.join(w.lower() for w in comment.body.split())
@@ -275,7 +310,7 @@ class BSBot():
             return
 
         if comment.author is not None:
-            if comment.author.name.lower() in EXCLUDED_USERS:
+            if comment.author.name.lower() in self.EXCLUDED_USERS:
                 return
 
         message = None
@@ -310,7 +345,7 @@ class BSBot():
             result = comment.reply(message)
             print(f'Made comment {result.permalink}')
         except Forbidden as e:
-            EXCLUDED_SUBS.append(comment.subreddit.display_name)
+            self.EXCLUDED_SUBS.append(comment.subreddit.display_name)
             self.save_reddit_config()
             sys.stderr.write(
                 f'Found new banned subreddit {comment.subreddit.display_name}'
@@ -357,7 +392,7 @@ class BSBot():
         for i, comment in enumerate(self.r.subreddit(subs).stream.comments()):
             if (
                     comment.author.name.lower() == secrets.USERNAME or
-                    comment.subreddit.display_name.lower() in EXCLUDED_SUBS
+                    comment.subreddit.display_name.lower() in self.EXCLUDED_SUBS
             ):
                 continue
             words = self.clean_comment(comment)
@@ -370,15 +405,12 @@ class BSBot():
                 # they mentioned "ben shapiro" in a reply
                 self.respond_to_replies()
                 self.respond_to_mentions()
+                self.handle_opt_outs()
                 reply_on_next_loop = False
 
             # elif 'pussy' in words:
             #     if random.random() > .9:
             #         result = self.reply_if_appropriate(comment, 'P-WORD')
-
-
-
-
 
 
 if __name__ == '__main__':
