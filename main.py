@@ -45,6 +45,13 @@ BAD_BOT_REPLIES = [
 ]
 
 SHITPOSTS = {
+    'HEALTHCARE': [
+        '''Let’s say your life depended on the following choice today: you must obtain either an affordable chair or an affordable X-ray. Which would you choose to obtain? Obviously, you’d choose the chair. That’s because there are many types of chair, produced by scores of different companies and widely distributed. You could buy a $15 folding chair or a $1,000 antique without the slightest difficulty. By contrast, to obtain an X-ray you’d have to work with your insurance company, wait for an appointment, and then haggle over price. Why? Because the medical market is far more regulated — thanks to the widespread perception that health care is a “right” — than the chair market.*
+
+
+*Does that sound soulless? True soullessness is depriving people of the choices they require because you’re more interested in patting yourself on the back by inventing rights than by incentivizing the creation of goods and services. In health care, we could use a lot less virtue signaling and a lot less government. Or we could just read Senator Sanders’s tweets while we wait in line for a government-sponsored surgery — dying, presumably, in a decrepit chair.''',
+        '''New York Magazine’s Jesse Singal, wrote that “free markets are good at some things and terrible at others and it’s silly to view them as ends rather than means.” That’s untrue. Free markets are expressions of individual autonomy, and therefore ends to be pursued in themselves.''',
+    ],
     'NOVEL': [
         """Hawthorne was a bear of a man, six three in his bare feet and two hundred fifteen pounds in his underwear, with a graying blond crew cut and a face carved of granite. But he had plenty of smile lines. He just didn’t like showing those to people unless he knew them.
         """,
@@ -286,9 +293,6 @@ class BSBot():
         return message
 
     def should_shitpost(self, submission):
-        if random.random() > .9:
-            # shake things up!
-            return True
         i = 0
         me = praw.models.Redditor(self.r, name=secrets.USERNAME)
         for i, my_comment in enumerate(me.comments.new(limit=50)):
@@ -299,7 +303,12 @@ class BSBot():
         return False
 
     def reply_if_appropriate(self, comment, message_type):
-        comment.refresh()
+        try:
+            comment.refresh()
+        except praw.exceptions.ClientException as e:
+            sys.stderr.write(f'Could not refresh comment {comment}. Exception: {e}')
+            return
+
         if (
                 secrets.USERNAME.lower() in
                 [
