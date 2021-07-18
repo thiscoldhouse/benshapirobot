@@ -237,6 +237,12 @@ class BSBot():
     def handle_opt_outs(self):
         replies = []
         for comment in self.opt_out_submission.comments:
+            try:
+                comment.refresh()
+            except praw.exceptions.ClientException as e:
+                sys.stderr.write(f'Could not refresh comment {comment}. Exception: {e}')
+                continue
+
             if comment.author is None:
                 continue
             elif comment.author.name.lower() in self.EXCLUDED_USERS:
@@ -257,6 +263,7 @@ class BSBot():
                 replies.append(comment.reply('Confirmed'))
             else:
                 replies.append(comment.reply("Facts don't care about your feelings"))
+
         return replies
 
     def save_reddit_config(self):
@@ -361,13 +368,16 @@ class BSBot():
             )
         return result
 
+    def avoid_rate_limit(self):
+        time.sleep(5)
 
     def respond_to_mentions(self):
         for i, mention in enumerate(self.r.inbox.mentions(limit=5)):
             if not mention.new:
                 continue
-            mention.mark_read()
-            self.reply_if_appropriate(mention, 'SUMMONS')
+            reply = self.reply_if_appropriate(mention, 'SUMMONS')
+            if reply is not None:
+                mention.mark_read()
 
 
     def respond_to_replies(self):
@@ -377,39 +387,32 @@ class BSBot():
             comment.refresh()
             for reply in comment.replies:
                 text = self.clean_comment(reply)
+                response = None
                 if 'good bot' in text:
-                    results.append(
+                    response = results.append(
                         self.reply_if_appropriate(reply, 'GOOD-BOT-REPLY')
                     )
                 elif 'bad bot' in text:
-                    results.append(
+                    response = results.append(
                         self.reply_if_appropriate(reply, 'BAD-BOT-REPLY')
                     )
                 elif 'is this real' in text or "can't be real" in text:
-                    results.append(
+                    response = results.append(
                         self.reply_if_appropriate(reply, 'REAL')
                     )
                 else:
-                    results.append(
+                    response = results.append(
                         self.reply_if_appropriate(reply, 'DEBATE-ME')
                     )
-        return results
 
+                if reponse is not None:
+                    self.avoid_rate_limit()
+        return results
 
     def main(self, subs='all'):
         reply_on_next_loop = True
         for i, comment in enumerate(self.r.subreddit(subs).stream.comments()):
-            if (
-                    comment.author.name.lower() == secrets.USERNAME or
-                    comment.subreddit.display_name.lower() in self.EXCLUDED_SUBS
-            ):
-                continue
-            words = self.clean_comment(comment)
-            result = None
-            if 'ben shapiro' in words:
-                result = self.reply_if_appropriate(comment, 'GENERIC')
-                reply_on_next_loop = True
-            elif reply_on_next_loop:
+            if reply_on_next_loop:
                 # avoids edge case of replying twice to someone because
                 # they mentioned "ben shapiro" in a reply
                 self.respond_to_replies()
@@ -417,6 +420,17 @@ class BSBot():
                 self.handle_opt_outs()
                 reply_on_next_loop = False
 
+            if (
+                    comment.author.name.lower() == secrets.USERNAME or
+                    comment.subreddit.display_name.lower() in self.EXCLUDED_SUBS
+            ):
+                continue
+
+            words = self.clean_comment(comment)
+            result = None
+            if 'ben shapiro' in words:
+                result = self.reply_if_appropriate(comment, 'GENERIC')
+                reply_on_next_loop = True
             # elif 'pussy' in words:
             #     if random.random() > .9:
             #         result = self.reply_if_appropriate(comment, 'P-WORD')
