@@ -405,7 +405,7 @@ class BSBot():
                         self.reply_if_appropriate(reply, 'DEBATE-ME')
                     )
 
-                if reponse is not None:
+                if response is not None:
                     self.avoid_rate_limit()
         return results
 
