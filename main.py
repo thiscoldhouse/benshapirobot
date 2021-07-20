@@ -2,6 +2,7 @@ import time
 import sys
 import json
 from prawcore.exceptions import Forbidden
+from praw.exceptions import RedditAPIException
 import praw
 import random
 import re
@@ -234,6 +235,12 @@ class BSBot():
                 return True
         return False
 
+    def did_already_reply(self, comment):
+        for reply in comment.replies:
+            if self.am_i_author(reply):
+                return True
+        return False
+
     def handle_opt_outs(self):
         replies = []
         for comment in self.opt_out_submission.comments:
@@ -247,14 +254,7 @@ class BSBot():
                 continue
             elif comment.author.name.lower() in self.EXCLUDED_USERS:
                 continue
-
-            already_replied = False
-            for reply in comment.replies:
-                if self.am_i_author(reply):
-                    already_replied = True
-                    break
-
-            if already_replied:
+            elif self.did_already_reply(comment):
                 continue
 
             if re.match(self.opt_out_regex, self.clean_comment(comment)):
@@ -276,20 +276,19 @@ class BSBot():
     def clean_comment(self, comment):
         return ' '.join(w.lower() for w in comment.body.split())
 
-    def get_shitpost_message(self, comment):
+    def extract_keyword_from_comment(self, comment):
         words = self.clean_comment(comment)
-        message = None
-        key = None
-        was_summoned = None
         for word in SHITPOSTS.keys():
             if word.lower() in words:
-                key = word
-                message = random.choice(SHITPOSTS[word])
-                break
-        else:
-            key = random.choice(list(SHITPOSTS.keys()))
-            message = random.choice(SHITPOSTS[key])
+                return word
+        return None
 
+    def get_shitpost_message(self, comment):
+        key = self.extract_keyword_from_comment(comment)
+        if key is None:
+            key = random.choice(list(SHITPOSTS.keys()))
+
+        message = random.choice(SHITPOSTS[key])
         if key == 'NOVEL':
             message = f'**An excerpt from True Allegiance, by Ben Shapiro:**\n\n\n{message}'
         elif key == 'TAUNT':
@@ -360,32 +359,45 @@ class BSBot():
         try:
             result = comment.reply(message)
             print(f'Made comment {result.permalink}')
-        except Forbidden as e:
-            self.EXCLUDED_SUBS.append(comment.subreddit.display_name)
-            self.save_reddit_config()
-            sys.stderr.write(
-                f'Found new banned subreddit {comment.subreddit.display_name}'
-            )
+        except Exception as e:
+            if type(e) is Forbidden:
+                self.EXCLUDED_SUBS.append(comment.subreddit.display_name)
+                self.save_reddit_config()
+                sys.stderr.write(
+                    f'Found new banned subreddit {comment.subreddit.display_name}'
+                )
+            elif type(e) is RedditAPIException:
+                # for now, probably handle differently later?
+                sys.stderr.write(
+                    f'Reply failed with exception {e}'
+                )
+            else:
+                sys.stderr.write(
+                    f'Reply failed with exception {e}'
+                )
+
         return result
 
     def avoid_rate_limit(self):
-        time.sleep(5)
+        time.sleep(2)
 
     def respond_to_mentions(self):
-        for i, mention in enumerate(self.r.inbox.mentions(limit=5)):
-            if not mention.new:
+        for i, mention in enumerate(self.r.inbox.mentions(limit=10)):
+            if self.did_already_reply(mention):
                 continue
             reply = self.reply_if_appropriate(mention, 'SUMMONS')
             if reply is not None:
                 mention.mark_read()
 
-
     def respond_to_replies(self):
         me = praw.models.Redditor(self.r, name=secrets.USERNAME)
         results = []
-        for i, comment in enumerate(me.comments.new(limit=5)):
+        for i, comment in enumerate(me.comments.new(limit=25)):
             comment.refresh()
             for reply in comment.replies:
+                if self.did_already_reply(reply):
+                    continue
+
                 text = self.clean_comment(reply)
                 response = None
                 if 'good bot' in text:
@@ -396,15 +408,20 @@ class BSBot():
                     response = results.append(
                         self.reply_if_appropriate(reply, 'BAD-BOT-REPLY')
                     )
-                elif 'is this real' in text or "can't be real" in text:
+                elif 'is this real' in text or "can't be real" in text or "did he actually" in text:
                     response = results.append(
                         self.reply_if_appropriate(reply, 'REAL')
                     )
                 else:
-                    response = results.append(
-                        self.reply_if_appropriate(reply, 'DEBATE-ME')
-                    )
-
+                    key = self.extract_keyword_from_comment(reply)
+                    if key is None:
+                        response = results.append(
+                            self.reply_if_appropriate(reply, 'DEBATE-ME')
+                        )
+                    else:
+                        response = results.append(
+                            self.reply_if_appropriate(reply, 'SUMMONS')
+                        )
                 if response is not None:
                     self.avoid_rate_limit()
         return results
