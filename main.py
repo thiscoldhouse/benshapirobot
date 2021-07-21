@@ -324,7 +324,7 @@ class BSBot():
     def reply_if_appropriate(self, comment, message_type, custom_message=None):
         try:
             comment.refresh()
-        except praw.exceptions.ClientException as e:
+        except (praw.exceptions.ClientException, AttributeError) as e:
             sys.stderr.write(f'Could not refresh comment {comment}. Exception: {e}')
             return
 
