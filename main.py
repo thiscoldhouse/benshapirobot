@@ -271,7 +271,7 @@ class BSBot():
                 )
             else:
                 replies.append(
-                    self.reply_if_appropriate(comment, 'BAD-BOT')
+                    self.reply_if_appropriate(comment, 'BAD-BOT-REPLY')
                 )
 
             self.EXCLUDED_USERS.append(comment.author.name.lower())
