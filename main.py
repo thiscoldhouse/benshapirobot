@@ -230,14 +230,22 @@ class BSBot():
         self.opt_out_submission = praw.models.Submission(self.r, id='olk6r2')
 
     def am_i_author(self, comment):
-        if comment.author is not None:
-            if comment.author.name.lower() == secrets.USERNAME:
+        try:
+            if comment.author is not None:
+                if comment.author.name.lower() == secrets.USERNAME:
+                    return True
+            return False
+        except AttributeError as e:
                 return True
         return False
 
     def did_already_reply(self, comment):
         for reply in comment.replies:
-            if self.am_i_author(reply):
+            if type(reply) is praw.models.MoreComments:
+                for comment in rely.comments:
+                    if self.did_already_reply(comment):
+                        return True
+            elif self.am_i_author(reply):
                 return True
         return False
 
@@ -258,11 +266,16 @@ class BSBot():
                 continue
 
             if re.match(self.opt_out_regex, self.clean_comment(comment)):
-                self.EXCLUDED_USERS.append(comment.author.name.lower())
-                self.save_reddit_config()
-                replies.append(comment.reply('Confirmed'))
+                replies.append(
+                    self.reply_if_appropriate(comment, 'OPT-OUT')
+                )
             else:
-                replies.append(comment.reply("Facts don't care about your feelings"))
+                replies.append(
+                    self.reply_if_appropriate(comment, 'BAD-BOT')
+                )
+
+            self.EXCLUDED_USERS.append(comment.author.name.lower())
+            self.save_reddit_config()
 
         return replies
 
@@ -308,7 +321,7 @@ class BSBot():
                     return True
         return False
 
-    def reply_if_appropriate(self, comment, message_type):
+    def reply_if_appropriate(self, comment, message_type, custom_message=None):
         try:
             comment.refresh()
         except praw.exceptions.ClientException as e:
@@ -341,7 +354,6 @@ class BSBot():
         elif message_type == 'DEBATE-ME':
             if self.should_shitpost(comment.submission):
                 return self.reply_if_appropriate(comment, 'SHITPOST')
-
             message = "Why won't you debate me?"
         elif message_type in ('SHITPOST', 'SUMMONS'):
             message = self.get_shitpost_message(comment)
@@ -349,8 +361,12 @@ class BSBot():
             message = random.choice(GOOD_BOT_REPLIES)
         elif message_type == 'BAD-BOT-REPLY':
             message = random.choice(BAD_BOT_REPLIES)
+        elif message_type == 'OPT-OUT':
+            message = 'Confirmed'
         elif message_type == 'REAL':
             message = 'Yup, all of the quotes and excerpts this bot posts that are explicitly attributed to Ben Shapiro are real. It is hard to believe people take him seriously.'
+        elif message_type == 'CUSTOM' and custom_message is not None:
+            message = custom_message
         else:
             raise ValueError(f'Invalid message_type {message_type}')
 
@@ -381,49 +397,39 @@ class BSBot():
     def avoid_rate_limit(self):
         time.sleep(2)
 
-    def respond_to_mentions(self):
-        for i, mention in enumerate(self.r.inbox.mentions(limit=10)):
-            if self.did_already_reply(mention):
-                continue
-            reply = self.reply_if_appropriate(mention, 'SUMMONS')
-            if reply is not None:
-                mention.mark_read()
-
-    def respond_to_replies(self):
-        me = praw.models.Redditor(self.r, name=secrets.USERNAME)
+    def respond(self):
         results = []
-        for i, comment in enumerate(me.comments.new(limit=25)):
-            comment.refresh()
-            for reply in comment.replies:
-                if self.did_already_reply(reply):
-                    continue
-
-                text = self.clean_comment(reply)
-                response = None
-                if 'good bot' in text:
+        for reply in self.r.inbox.unread():
+            text = self.clean_comment(reply)
+            response = None
+            if 'good bot' in text:
+                response = results.append(
+                    self.reply_if_appropriate(reply, 'GOOD-BOT-REPLY')
+                )
+            elif 'bad bot' in text:
+                response = results.append(
+                    self.reply_if_appropriate(reply, 'BAD-BOT-REPLY')
+                )
+            elif 'is this real' in text or "can't be real" in text or "did he actually" in text:
+                response = results.append(
+                    self.reply_if_appropriate(reply, 'REAL')
+                )
+            else:
+                key = self.extract_keyword_from_comment(reply)
+                if key is None:
                     response = results.append(
-                        self.reply_if_appropriate(reply, 'GOOD-BOT-REPLY')
-                    )
-                elif 'bad bot' in text:
-                    response = results.append(
-                        self.reply_if_appropriate(reply, 'BAD-BOT-REPLY')
-                    )
-                elif 'is this real' in text or "can't be real" in text or "did he actually" in text:
-                    response = results.append(
-                        self.reply_if_appropriate(reply, 'REAL')
+                        self.reply_if_appropriate(reply, 'DEBATE-ME')
                     )
                 else:
-                    key = self.extract_keyword_from_comment(reply)
-                    if key is None:
-                        response = results.append(
-                            self.reply_if_appropriate(reply, 'DEBATE-ME')
-                        )
-                    else:
-                        response = results.append(
-                            self.reply_if_appropriate(reply, 'SUMMONS')
-                        )
-                if response is not None:
-                    self.avoid_rate_limit()
+                    response = results.append(
+                        self.reply_if_appropriate(reply, 'SUMMONS')
+                    )
+            if response is not None:
+                self.avoid_rate_limit()
+                results.append(response)
+
+            reply.mark_read()
+
         return results
 
     def main(self, subs='all'):
@@ -432,8 +438,7 @@ class BSBot():
             if reply_on_next_loop:
                 # avoids edge case of replying twice to someone because
                 # they mentioned "ben shapiro" in a reply
-                self.respond_to_replies()
-                self.respond_to_mentions()
+                self.respond()
                 self.handle_opt_outs()
                 reply_on_next_loop = False
 
@@ -448,6 +453,7 @@ class BSBot():
             if 'ben shapiro' in words:
                 result = self.reply_if_appropriate(comment, 'GENERIC')
                 reply_on_next_loop = True
+
             # elif 'pussy' in words:
             #     if random.random() > .9:
             #         result = self.reply_if_appropriate(comment, 'P-WORD')
