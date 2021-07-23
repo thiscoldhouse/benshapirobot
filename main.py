@@ -198,10 +198,10 @@ options = ', '.join([o.lower() for o in SHITPOSTS.keys()])
 FOOTNOTE = f"""
 *****
 
-^(I'm a bot. My purpose is to contextualize--and poke some light-hearted fun at--Ben Shapiro to counteract the social media pipeline that sends people his way. I'm part of a project that uses technology to better understand Ben and other right wing grifters. /r/AuthoritarianMoment for more info, to request features, or to give feedback.) [^Opt ^out ^here.](https://www.reddit.com/r/AuthoritarianMoment/comments/olk6r2/click_here_to_optout_of_uthebenshapirobot/)
+^(I'm a bot. My purpose is to counteract the social media pipeline that sends people his way. I'm part of a project that uses technology to better understand and counteract Ben and other right wing grifters. /r/AuthoritarianMoment for more info, to request features, or to give feedback.) [^Opt ^out ^here.](https://www.reddit.com/r/AuthoritarianMoment/comments/olk6r2/click_here_to_optout_of_uthebenshapirobot/)
 
 
-^(You can also summon me by mentioning /u/thebenshapirobot. Options: {options}, or just say whatever, see what you get.)
+^(You can also summon me by tagging thebenshapirobot. Options: {options}, or just say whatever, see what you get.)
 """
 
 
