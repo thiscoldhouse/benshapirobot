@@ -427,8 +427,7 @@ class BSBot():
             if response is not None:
                 self.avoid_rate_limit()
                 results.append(response)
-
-            reply.mark_read()
+                reply.mark_read()
 
         return results
 
