@@ -408,6 +408,9 @@ class BSBot():
     def respond(self):
         results = []
         for reply in self.r.inbox.unread():
+            if reply.submission.id == self.opt_out_submission.id:
+                continue
+
             text = self.clean_comment(reply)
             response = None
             if 'good bot' in text:
