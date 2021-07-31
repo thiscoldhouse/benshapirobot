@@ -422,27 +422,18 @@ class BSBot():
             text = self.clean_comment(reply)
             response = None
             if 'good bot' in text:
-                response = results.append(
-                    self.reply_if_appropriate(reply, 'GOOD-BOT-REPLY')
-                )
+                response = self.reply_if_appropriate(reply, 'GOOD-BOT-REPLY')
             elif 'bad bot' in text:
-                response = results.append(
-                    self.reply_if_appropriate(reply, 'BAD-BOT-REPLY')
-                )
+                response = self.reply_if_appropriate(reply, 'BAD-BOT-REPLY')
             elif 'is this real' in text or "can't be real" in text or "did he actually" in text:
-                response = results.append(
-                    self.reply_if_appropriate(reply, 'REAL')
-                )
+                response = self.reply_if_appropriate(reply, 'REAL')
             else:
                 key = self.extract_keyword_from_comment(reply)
                 if key is None:
-                    response = results.append(
-                        self.reply_if_appropriate(reply, 'DEBATE-ME')
-                    )
+                    response = self.reply_if_appropriate(reply, 'DEBATE-ME')
                 else:
-                    response = results.append(
-                        self.reply_if_appropriate(reply, 'SUMMONS')
-                    )
+                    response = self.reply_if_appropriate(reply, 'SUMMONS')
+
             if response is not None:
                 self.avoid_rate_limit()
                 results.append(response)
