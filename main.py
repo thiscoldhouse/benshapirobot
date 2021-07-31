@@ -408,7 +408,15 @@ class BSBot():
     def respond(self):
         results = []
         for reply in self.r.inbox.unread():
-            if reply.submission.id == self.opt_out_submission.id:
+            submission_id = None
+            try:
+                submission_id = reply.submission.id
+            except AttributeError as e:
+                # some kinds of messages arne't associated with
+                # subreddits.
+                pass
+
+            if submission_id == self.opt_out_submission.id:
                 continue
 
             text = self.clean_comment(reply)
