@@ -202,17 +202,6 @@ darkness, congregating. He could feel their eyes.
 
 SHITPOST_THRESHOLD = 4
 
-options = ', '.join([o.lower() for o in SHITPOSTS.keys()])
-FOOTNOTE = f"""
-*****
-
-^(I'm a bot. My purpose is to counteract the social media pipeline that sends people his way. I'm part of a project that uses technology to better understand and counteract Ben and other right wing grifters. /r/AuthoritarianMoment for more info, to request features, or to give feedback.) [^Opt ^out ^here.](https://www.reddit.com/r/AuthoritarianMoment/comments/olk6r2/click_here_to_optout_of_uthebenshapirobot/)
-
-
-^(You can also summon me by tagging thebenshapirobot. Options: {options}, or just say whatever, see what you get.)
-"""
-
-
 
 ################################## actual code #################################
 
@@ -236,6 +225,21 @@ class BSBot():
             password=secrets.PASSWORD
         )
         self.opt_out_submission = praw.models.Submission(self.r, id='olk6r2')
+
+    def generate_footnote(self):
+        options = [o.lower() for o in SHITPOSTS.keys()]
+        options.remove('taunt')
+        options = sorted(options, key=lambda x: random.random())[:4]
+        options = ', '.join(options)
+        options = f'{options}, etc.'
+        return f"""
+*****
+
+^(I'm a bot. My purpose is to counteract the alt-right social media pipeline. You can summon me by tagging thebenshapirobot. Options: {options})
+
+[^More ^info, ^opt ^out.](https://np.reddit.com/r/AuthoritarianMoment/wiki/index)
+        """
+
 
     def am_i_author(self, comment):
         try:
@@ -378,7 +382,7 @@ class BSBot():
         else:
             raise ValueError(f'Invalid message_type {message_type}')
 
-        message = '\n\n'.join((message, FOOTNOTE))
+        message = '\n\n'.join((message, self.generate_footnote()))
         result = None
         try:
             result = comment.reply(message)
