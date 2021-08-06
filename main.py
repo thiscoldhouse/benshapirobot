@@ -215,6 +215,7 @@ class BSBot():
             config = json.loads(f.read())
 
         self.EXCLUDED_USERS, self.EXCLUDED_SUBS = config['EXCLUDED_USERS'], config['EXCLUDED_SUBS']
+        self.EXCLUDED_USERS.append('thebenshapirobotbot')
 
         self.r = praw.Reddit(
             # TODO: move these into kwargs or something
@@ -293,8 +294,8 @@ class BSBot():
 
     def save_reddit_config(self):
         config = {}
-        config['EXCLUDED_USERS'] = self.EXCLUDED_USERS
-        config['EXCLUDED_SUBS'] = self.EXCLUDED_SUBS
+        config['EXCLUDED_USERS'] = list(set(self.EXCLUDED_USERS))
+        config['EXCLUDED_SUBS'] = list(set(self.EXCLUDED_SUBS))
         with open('reddit_config.json', 'w+') as f:
             f.write(json.dumps(config))
 
@@ -420,12 +421,14 @@ class BSBot():
                 # subreddits.
                 pass
 
-            if submission_id == self.opt_out_submission.id:
-                continue
 
             text = self.clean_comment(reply)
             response = None
-            if 'good bot' in text:
+            if submission_id == self.opt_out_submission.id:
+                self.EXCLUDED_USERS.append(reply.author.name.lower())
+                self.save_reddit_config()
+                response = 'Confirmed'
+            elif 'good bot' in text:
                 response = self.reply_if_appropriate(reply, 'GOOD-BOT-REPLY')
             elif 'bad bot' in text:
                 response = self.reply_if_appropriate(reply, 'BAD-BOT-REPLY')
@@ -446,13 +449,13 @@ class BSBot():
         return results
 
     def main(self, subs='all'):
+        self.handle_opt_outs()
         reply_on_next_loop = True
         for i, comment in enumerate(self.r.subreddit(subs).stream.comments()):
             if reply_on_next_loop:
                 # avoids edge case of replying twice to someone because
                 # they mentioned "ben shapiro" in a reply
                 self.respond()
-                self.handle_opt_outs()
                 reply_on_next_loop = False
 
             if (
