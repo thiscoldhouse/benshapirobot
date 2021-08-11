@@ -56,6 +56,10 @@ SHITPOSTS = {
 *Does that sound soulless? True soullessness is depriving people of the choices they require because you’re more interested in patting yourself on the back by inventing rights than by incentivizing the creation of goods and services. In health care, we could use a lot less virtue signaling and a lot less government. Or we could just read Senator Sanders’s tweets while we wait in line for a government-sponsored surgery — dying, presumably, in a decrepit chair.''',
         '''New York Magazine’s Jesse Singal, wrote that “free markets are good at some things and terrible at others and it’s silly to view them as ends rather than means.” That’s untrue. Free markets are expressions of individual autonomy, and therefore ends to be pursued in themselves.''',
     ],
+    'COVID':[
+        "And then, there are people in the United States that are pushing for mask mandates on children. The data that they are using are extraordinarily skimpy--in fact, they are essentially nonexistent. You're hearing the CDC say things like 'maybe the delta variant does more damage to kids,' but no information they have presented publicly that there is more damange being done to kids... and the reason we are being told that they damage kids is because they can't scare the adults enough. If we cannot scare the adults enough, we're going to have to mask up the kids.",
+        "We are being told that if we don't mask our children, that if we don't mask ourselves, that if we don't initiate social distancing measures again and shut down business again, that COVID is going to kill us all",
+    ],
     'CLIMATE': [
         "When it comes to global warming, there are two issues: is there such a thing as the greenhouse gas effect, the answer is yes. Is that something that is going to dramatically reshape our world? There is no evidence to show that it will. Is that something that we can stop? There is no evidence to show that we can",
         "Even climatologists can't predict 10 years from now. They can't explain why there has been no warming over the last 15 years. There has been a static trend with regard to temperature for 15 years.",
@@ -187,6 +191,10 @@ darkness, congregating. He could feel their eyes.
         "Judeo-Christian values made The West great.",
     ],
     'CIVIL RIGHTS': [
+        "Most Americans when they look around at their lives, they think: I'm not a racist, nobody I know is a racist, I wouldn't hang out with a racist, I don't like doing business with racists--so, where is all the racism in American society?",
+        "Ms. Cooper was denounced as a Karen, or self-appointed whistle-blower, for her understandable reaction. And if you noticed that the inciting Karen of the affair was not the middle-aged white lady but Mr. Cooper himself for busting her for letting her dog off-leash. Her employer not only fired her, but far worse, publicly branded her a racist.",
+        "News accounts have repeatedly characterized Ms. Cooper as having threatened Mr. Cooper, but that is the opposite of what happened.",
+        "Possibly it was an overreaction for Cooper to call the police, but then again, when citizens feel threatened, calling the cops and letting them sort it out is what is supposed to happen.",
         'I don’t think the law has any role whatsoever in banning race-based discrimination by private actors',
     ],
     'DUMB TAKES': [
@@ -427,7 +435,7 @@ class BSBot():
             if submission_id == self.opt_out_submission.id:
                 self.EXCLUDED_USERS.append(reply.author.name.lower())
                 self.save_reddit_config()
-                response = 'Confirmed'
+                response = self.reply_if_appropriate(reply, 'OPT-OUT')
             elif 'good bot' in text:
                 response = self.reply_if_appropriate(reply, 'GOOD-BOT-REPLY')
             elif 'bad bot' in text:
