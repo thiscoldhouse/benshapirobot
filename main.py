@@ -246,7 +246,7 @@ class BSBot():
 
 ^(I'm a bot. My purpose is to counteract online radicalization. You can summon me by tagging thebenshapirobot. Options: {options})
 
-[^Feedback: ^/r/AuthoritarianMoment](https://np.reddit.com/r/AuthoritarianMoment) ^| [^More ^info](https://np.reddit.com/r/AuthoritarianMoment/wiki/index) ^| [^Opt ^out](https://np.reddit.com/r/AuthoritarianMoment/comments/olk6r2/click_here_to_optout_of_uthebenshapirobot/)
+[^More ^About ^Ben](https://np.reddit.com/r/AuthoritarianMoment/wiki/index) ^| [^Feedback ^& ^Discussion: ^r/AuthoritarianMoment](https://np.reddit.com/r/AuthoritarianMoment) ^| [^Opt ^out](https://np.reddit.com/r/AuthoritarianMoment/comments/olk6r2/click_here_to_optout_of_uthebenshapirobot/)
         """
 
 
@@ -283,17 +283,10 @@ class BSBot():
                 continue
             elif comment.author.name.lower() in self.EXCLUDED_USERS:
                 continue
-            elif self.did_already_reply(comment):
-                continue
 
-            if re.match(self.opt_out_regex, self.clean_comment(comment)):
-                replies.append(
-                    self.reply_if_appropriate(comment, 'OPT-OUT')
-                )
-            else:
-                replies.append(
-                    self.reply_if_appropriate(comment, 'BAD-BOT-REPLY')
-                )
+            replies.append(
+                self.reply_if_appropriate(comment, 'OPT-OUT')
+            )
 
             self.EXCLUDED_USERS.append(comment.author.name.lower())
             self.save_reddit_config()
