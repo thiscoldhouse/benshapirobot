@@ -246,7 +246,7 @@ class BSBot():
 
 ^(I'm a bot. My purpose is to counteract online radicalization. You can summon me by tagging thebenshapirobot. Options: {options})
 
-c.)
+
 
 [^More ^About ^Ben ](https://np.reddit.com/r/AuthoritarianMoment/wiki/index) ^| [^Feedback ^& ^Discussion: ^r/AuthoritarianMoment ](https://np.reddit.com/r/AuthoritarianMoment) ^| [^Opt ^Out ](https://np.reddit.com/r/AuthoritarianMoment/comments/olk6r2/click_here_to_optout_of_uthebenshapirobot/)
 """
