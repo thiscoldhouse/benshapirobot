@@ -62,7 +62,7 @@ SHITPOSTS = {
     ],
     'SEX': [
         'Pegging, of course, is an obscure sexual practice in which women perform the more aggressive sexual act on men.',
-        "My only real concern is that the women involved -- who apparently require a "bucket and a mop" -- get the medical care they require. My doctor wife's differential diagnosis: bacterial vaginosis, yeast infection, or trichomonis."
+        "My only real concern is that the women involved -- who apparently require a \"bucket and a mop\" -- get the medical care they require. My doctor wife's differential diagnosis: bacterial vaginosis, yeast infection, or trichomonis."
     ],
     'CLIMATE': [
         "When it comes to global warming, there are two issues: is there such a thing as the greenhouse gas effect, the answer is yes. Is that something that is going to dramatically reshape our world? There is no evidence to show that it will. Is that something that we can stop? There is no evidence to show that we can",
