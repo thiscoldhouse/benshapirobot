@@ -33,7 +33,7 @@ Please don't use the P-word, this isn't an NSFW post.
 Remember when Ben Shapiro recited the lyrics to WAP on his show and was too uncomfortable to say "pussy" so he said "p-word?" Then, when everyone made fun of him, he doubled down and tweeted:
 
 
->My only real concern is that the women involved -- who apparently require a "bucket and a mop" -- get the medical care they require. My doctor wife's differential diagnosis: bacterial vaginosis, yeast infection, or trichomonis.
+>
 
 """
 
@@ -59,6 +59,10 @@ SHITPOSTS = {
     'COVID':[
         "And then, there are people in the United States that are pushing for mask mandates on children. The data that they are using are extraordinarily skimpy--in fact, they are essentially nonexistent. You're hearing the CDC say things like 'maybe the delta variant does more damage to kids,' but no information they have presented publicly that there is more damange being done to kids... and the reason we are being told that they damage kids is because they can't scare the adults enough. If we cannot scare the adults enough, we're going to have to mask up the kids.",
         "We are being told that if we don't mask our children, that if we don't mask ourselves, that if we don't initiate social distancing measures again and shut down business again, that COVID is going to kill us all",
+    ],
+    'SEX': [
+        'Pegging, of course, is an obscure sexual practice in which women perform the more aggressive sexual act on men.',
+        "My only real concern is that the women involved -- who apparently require a "bucket and a mop" -- get the medical care they require. My doctor wife's differential diagnosis: bacterial vaginosis, yeast infection, or trichomonis."
     ],
     'CLIMATE': [
         "When it comes to global warming, there are two issues: is there such a thing as the greenhouse gas effect, the answer is yes. Is that something that is going to dramatically reshape our world? There is no evidence to show that it will. Is that something that we can stop? There is no evidence to show that we can",
@@ -191,15 +195,15 @@ darkness, congregating. He could feel their eyes.
         "Judeo-Christian values made The West great.",
     ],
     'CIVIL RIGHTS': [
+        "“Native American culture [being] inferior to Western culture…is a contention with which I generally agree.",
         "Most Americans when they look around at their lives, they think: I'm not a racist, nobody I know is a racist, I wouldn't hang out with a racist, I don't like doing business with racists--so, where is all the racism in American society?",
-        "Ms. Cooper was denounced as a Karen, or self-appointed whistle-blower, for her understandable reaction. And if you noticed that the inciting Karen of the affair was not the middle-aged white lady but Mr. Cooper himself for busting her for letting her dog off-leash. Her employer not only fired her, but far worse, publicly branded her a racist.",
         "News accounts have repeatedly characterized Ms. Cooper as having threatened Mr. Cooper, but that is the opposite of what happened.",
-        "Possibly it was an overreaction for Cooper to call the police, but then again, when citizens feel threatened, calling the cops and letting them sort it out is what is supposed to happen.",
+        "Possibly it was an overreaction for Cooper [of the Central Park Dog Walking incident] to call the police, but then again, when citizens feel threatened, calling the cops and letting them sort it out is what is supposed to happen.",
         'I don’t think the law has any role whatsoever in banning race-based discrimination by private actors',
     ],
     'DUMB TAKES': [
         "Frankly, the term 'sexual orientation' needs to go. According to Webster's Dictionary, it implies the possibility of change in response to external stimuli. It is deeply offensive. I call on Webster's to free itself of its intellectual heteronormativity.",
-        "Let’s say, for the sake of argument, that all of the water levels around the world rise by, let’s say, five feet or ten years over the next hundred years. It puts all the low-lying areas on the coast underwater. Let’s say all of that happens. You think that people aren’t just going to sell their homes and move?",
+        "Let’s say, for the sake of argument, that all of the water levels around the world rise by, let’s say, five feet or ten feet over the next hundred years. It puts all the low-lying areas on the coast underwater. Let’s say all of that happens. You think that people aren’t just going to sell their homes and move?",
         "Trayvon Martin would have turned 21 today if he hadn't taken a man's head and beaten it on the pavement before being shot.",
     ],
     'TAUNT': [
