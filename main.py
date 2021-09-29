@@ -359,7 +359,8 @@ class BSBot():
 
         if comment.author is not None:
             if comment.author.name.lower() in self.EXCLUDED_USERS:
-                return
+                if message_type != 'OPT-OUT':
+                    return
 
         message = None
         if message_type == 'GENERIC':
@@ -456,7 +457,7 @@ class BSBot():
         return results
 
     def main(self, subs='all'):
-        self.handle_opt_outs()
+        #self.handle_opt_outs()
         reply_on_next_loop = True
         for i, comment in enumerate(self.r.subreddit(subs).stream.comments()):
             if reply_on_next_loop:
