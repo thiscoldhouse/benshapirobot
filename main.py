@@ -48,6 +48,10 @@ BAD_BOT_REPLIES = [
     "Another millenial snowflake offended by logic and reason.",
 ]
 
+GOOD_BOT_REPLY_REPLIES = [
+    "You're a bear of a man.",
+]
+
 SHITPOSTS = {
     'HEALTHCARE': [
         '''Let’s say your life depended on the following choice today: you must obtain either an affordable chair or an affordable X-ray. Which would you choose to obtain? Obviously, you’d choose the chair. That’s because there are many types of chair, produced by scores of different companies and widely distributed. You could buy a $15 folding chair or a $1,000 antique without the slightest difficulty. By contrast, to obtain an X-ray you’d have to work with your insurance company, wait for an appointment, and then haggle over price. Why? Because the medical market is far more regulated — thanks to the widespread perception that health care is a “right” — than the chair market.*
@@ -380,6 +384,8 @@ class BSBot():
             message = self.get_shitpost_message(comment)
         elif message_type == 'GOOD-BOT-REPLY':
             message = random.choice(GOOD_BOT_REPLIES)
+        elif message_type == 'GOOD-BOT-REPLY-REPLY':
+            message = random.choice(GOOD_BOT_REPLY_REPLIES)
         elif message_type == 'BAD-BOT-REPLY':
             message = random.choice(BAD_BOT_REPLIES)
         elif message_type == 'OPT-OUT':
@@ -442,6 +448,8 @@ class BSBot():
                 response = self.reply_if_appropriate(reply, 'BAD-BOT-REPLY')
             elif 'is this real' in text or "can't be real" in text or "did he actually" in text:
                 response = self.reply_if_appropriate(reply, 'REAL')
+            elif 'take a bullet for y' in text:
+                response = self.reply_if_appropriate(reply, 'GOOD-BOT-REPLY-REPLY')
             else:
                 key = self.extract_keyword_from_comment(reply)
                 if key is None:
