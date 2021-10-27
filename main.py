@@ -194,7 +194,8 @@ darkness, congregating. He could feel their eyes.
         "This is what the radical feminist movement was proposing, remember? Women need a man the way a fish needs a bicycle... unless it turns out that they're little fish, then you might need another fish around to help take care of things.",
         "Women kind of like having babies. This notion that women don't want to have babies is so bizarre. Has anyone even met a 35 year old single woman? The vast majority of women who are 35 and single are not supremely happy.",
     ],
-    'PATRIOTISM': [
+    'HISTORY': [
+        "Freedom is an invention of the last couple of centuries. It really did not exist en masse until the last couple of centuries--and even then, really only since the end of the Soviet Union has it been sorta the broad movement of the public across the world.",
         "America was built on values that the left is fighting every single day to tear down.",
         "Judeo-Christian values made The West great.",
     ],
