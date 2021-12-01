@@ -6,8 +6,10 @@ from praw.exceptions import RedditAPIException
 import praw
 import random
 import re
-
 import secrets
+
+import logging
+logging.basicConfig(filename="comments.log")
 
 # ------------------------ content ----------------------------- #
 
@@ -197,7 +199,6 @@ darkness, congregating. He could feel their eyes.
     'HISTORY': [
         "Freedom is an invention of the last couple of centuries. It really did not exist en masse until the last couple of centuries--and even then, really only since the end of the Soviet Union has it been sorta the broad movement of the public across the world.",
         "America was built on values that the left is fighting every single day to tear down.",
-        "Judeo-Christian values made The West great.",
     ],
     'CIVIL RIGHTS': [
         "“Native American culture [being] inferior to Western culture…is a contention with which I generally agree.",
