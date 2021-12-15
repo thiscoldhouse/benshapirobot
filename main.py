@@ -71,6 +71,7 @@ SHITPOSTS = {
         "My only real concern is that the women involved -- who apparently require a \"bucket and a mop\" -- get the medical care they require. My doctor wife's differential diagnosis: bacterial vaginosis, yeast infection, or trichomonis."
     ],
     'CLIMATE': [
+        'Renewable energy: dumbest phrase since climate change. See the first law of thermodynamics, dumbass.',
         "When it comes to global warming, there are two issues: is there such a thing as the greenhouse gas effect, the answer is yes. Is that something that is going to dramatically reshape our world? There is no evidence to show that it will. Is that something that we can stop? There is no evidence to show that we can",
         "Even climatologists can't predict 10 years from now. They can't explain why there has been no warming over the last 15 years. There has been a static trend with regard to temperature for 15 years.",
         "The weatherman can't even predict the weather a few days from now"
@@ -234,6 +235,7 @@ class BSBot():
 
         self.EXCLUDED_USERS, self.EXCLUDED_SUBS = config['EXCLUDED_USERS'], config['EXCLUDED_SUBS']
         self.EXCLUDED_USERS.append('thebenshapirobotbot')
+        self.EXCLUDED_USERS.append('automoderator')
 
         self.r = praw.Reddit(
             # TODO: move these into kwargs or something
