@@ -204,8 +204,6 @@ darkness, congregating. He could feel their eyes.
     'CIVIL RIGHTS': [
         "“Native American culture [being] inferior to Western culture…is a contention with which I generally agree.",
         "Most Americans when they look around at their lives, they think: I'm not a racist, nobody I know is a racist, I wouldn't hang out with a racist, I don't like doing business with racists--so, where is all the racism in American society?",
-        "News accounts have repeatedly characterized Ms. Cooper as having threatened Mr. Cooper, but that is the opposite of what happened.",
-        "Possibly it was an overreaction for Cooper [of the Central Park Dog Walking incident] to call the police, but then again, when citizens feel threatened, calling the cops and letting them sort it out is what is supposed to happen.",
         'I don’t think the law has any role whatsoever in banning race-based discrimination by private actors',
     ],
     'DUMB TAKES': [
