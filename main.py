@@ -454,10 +454,18 @@ class BSBot():
                 response = self.reply_if_appropriate(reply, 'REAL')
             elif 'take a bullet for y' in text:
                 response = self.reply_if_appropriate(reply, 'GOOD-BOT-REPLY-REPLY')
-            elif 'grifter' in text and 'believe' in text and (
-                    'not' in text or
-                    'never' in text or
-                    'don\'t' in text
+            elif (
+                    (
+                        'grifter' in text or
+                        'grift' in text
+                    ) and
+                    (
+                        'believe' in text or
+                        'think' in text or
+                        'know' in text or
+                        'really' in text or
+                        'actually' in text
+                    )
             ):
                 response = self.reply_if_appropriate(reply, 'IS_GRIFTER')
             else:
