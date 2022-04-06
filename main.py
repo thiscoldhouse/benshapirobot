@@ -394,6 +394,8 @@ class BSBot():
             message = 'Confirmed'
         elif message_type == 'REAL':
             message = 'Yup, all of the quotes and excerpts this bot posts that are explicitly attributed to Ben Shapiro are real. It is hard to believe people take him seriously.'
+        elif message_type == 'IS_GRIFTER':
+            message = 'He is absolutely a grifter. See the wiki link in the footer for more information.'
         elif message_type == 'CUSTOM' and custom_message is not None:
             message = custom_message
         else:
@@ -452,6 +454,12 @@ class BSBot():
                 response = self.reply_if_appropriate(reply, 'REAL')
             elif 'take a bullet for y' in text:
                 response = self.reply_if_appropriate(reply, 'GOOD-BOT-REPLY-REPLY')
+            elif 'grifter' in text and 'believe' in text and (
+                    'not' in text or
+                    'never' in text or
+                    'don\'t' in text
+            ):
+                response = self.reply_if_appropriate(reply, 'IS_GRIFTER')
             else:
                 key = self.extract_keyword_from_comment(reply)
                 if key is None:
