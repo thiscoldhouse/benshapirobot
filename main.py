@@ -22,6 +22,7 @@ QUOTES = [
     'The Palestinian Arab population is rotten to the core.',
     'There is no doubt that law enforcement should be heavily scrutinizing the membership and administration of mosques.',
     'If you believe that the Jewish state has a right to exist, then you must allow Israel to transfer the Palestinians and the Israeli-Arabs from Judea, Samaria, Gaza and Israel proper. It’s an ugly solution, but it is the only solution... It’s time to stop being squeamish.',
+    "Most Americans when they look around at their lives, they think: I'm not a racist, nobody I know is a racist, I wouldn't hang out with a racist, I don't like doing business with racists--so, where is all the racism in American society?",
     "When it comes to global warming, there are two issues: is there such a thing as the greenhouse gas effect, the answer is yes. Is that something that is going to dramatically reshape our world? There is no evidence to show that it will. Is that something that we can stop? There is no evidence to show that we can",
     "Even climatologists can't predict 10 years from now. They can't explain why there has been no warming over the last 15 years. There has been a static trend with regard to temperature for 15 years.",
     'If you believe that the Jewish state has a right to exist, then you must allow Israel to transfer the Palestinians and the Israeli-Arabs from Judea, Samaria, Gaza and Israel proper. It’s an ugly solution, but it is the only solution… It’s time to stop being squeamish.',
