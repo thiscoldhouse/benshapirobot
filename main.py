@@ -395,7 +395,7 @@ class BSBot():
         elif message_type == 'BAD-BOT-REPLY':
             message = random.choice(BAD_BOT_REPLIES)
         elif message_type == 'OPT-OUT':
-            message = 'Confirmed'
+            message = random.choice(BAD_BOT_REPLIES)
         elif message_type == 'REAL':
             message = 'Yup, all of the quotes and excerpts this bot posts that are explicitly attributed to Ben Shapiro are real. It is hard to believe people take him seriously.'
         elif message_type == 'IS_GRIFTER':
@@ -469,6 +469,8 @@ class BSBot():
                         'know' in text or
                         'really' in text or
                         'actually' in text
+                    ) and (
+                        len(text) < 140
                     )
             ):
                 response = self.reply_if_appropriate(reply, 'IS_GRIFTER')
