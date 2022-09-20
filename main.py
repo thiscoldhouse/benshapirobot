@@ -69,7 +69,7 @@ SHITPOSTS = {
         "By objectification of women, do you mean that there are actual standards of beauty and that there are many people in popular culture who we have been told are supposed to be seen as beautiful who are not objectively beautiful? Obviously that's true. Obviously that's true. If you polled men on whether Lizzo is beautiful--and I say Lizzo is not by any classical definition a beautiful person--that does not mean that that is objectification of women, that just means that there is a standard called beauty and it has meaning."
     ],
     'COVID':[
-        "And then, there are people in the United States that are pushing for mask mandates on children. The data that they are using are extraordinarily skimpy--in fact, they are essentially nonexistent. You're hearing the CDC say things like 'maybe the delta variant does more damage to kids,' but no information they have presented publicly that there is more damange being done to kids... and the reason we are being told that they damage kids is because they can't scare the adults enough. If we cannot scare the adults enough, we're going to have to mask up the kids.",
+        "And then, there are people in the United States that are pushing for mask mandates on children. The data that they are using are extraordinarily skimpy--in fact, they are essentially nonexistent. You're hearing the CDC say things like 'maybe the delta variant does more damage to kids,' but no information they have presented publicly that there is more damage being done to kids... and the reason we are being told that they damage kids is because they can't scare the adults enough. If we cannot scare the adults enough, we're going to have to mask up the kids.",
         "We are being told that if we don't mask our children, that if we don't mask ourselves, that if we don't initiate social distancing measures again and shut down business again, that COVID is going to kill us all",
     ],
     'SEX': [
@@ -500,7 +500,9 @@ class BSBot():
                 # they mentioned "ben shapiro" in a reply
                 self.respond()
                 reply_on_next_loop = False
-
+            if comment.author is None:
+                # no idea why this happens but that's okay by me.
+                continue
             if (
                     comment.author.name.lower() == secrets.USERNAME or
                     comment.subreddit.display_name.lower() in self.EXCLUDED_SUBS
