@@ -501,7 +501,6 @@ class BSBot():
                 self.respond()
                 reply_on_next_loop = False
             if comment.author is None:
-                # no idea why this happens but that's okay by me.
                 continue
             if (
                     comment.author.name.lower() == secrets.USERNAME or
@@ -514,11 +513,6 @@ class BSBot():
             if 'ben shapiro' in words:
                 result = self.reply_if_appropriate(comment, 'GENERIC')
                 reply_on_next_loop = True
-
-            # elif 'pussy' in words:
-            #     if random.random() > .9:
-            #         result = self.reply_if_appropriate(comment, 'P-WORD')
-
 
 if __name__ == '__main__':
     BSBot().main()
