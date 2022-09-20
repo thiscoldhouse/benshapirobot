@@ -28,7 +28,8 @@ QUOTES = [
     'If you believe that the Jewish state has a right to exist, then you must allow Israel to transfer the Palestinians and the Israeli-Arabs from Judea, Samaria, Gaza and Israel proper. It’s an ugly solution, but it is the only solution… It’s time to stop being squeamish.',
     "This is what the radical feminist movement was proposing, remember? Women need a man the way a fish needs a bicycle... unless it turns out that they're little fish, then you might need another fish around to help take care of things.",
         '''Let’s say your life depended on the following choice today: you must obtain either an affordable chair or an affordable X-ray. Which would you choose to obtain? Obviously, you’d choose the chair. That’s because there are many types of chair, produced by scores of different companies and widely distributed. You could buy a $15 folding chair or a $1,000 antique without the slightest difficulty. By contrast, to obtain an X-ray you’d have to work with your insurance company, wait for an appointment, and then haggle over price. Why? Because the medical market is far more regulated — thanks to the widespread perception that health care is a “right” — than the chair market. Does that sound soulless? True soullessness is depriving people of the choices they require because you’re more interested in patting yourself on the back by inventing rights than by incentivizing the creation of goods and services. In health care, we could use a lot less virtue signaling and a lot less government. Or we could just read Senator Sanders’s tweets while we wait in line for a government-sponsored surgery — dying, presumably, in a decrepit chair.''',
-        'Pegging, of course, is an obscure sexual practice in which women perform the more aggressive sexual act on men.',
+    'Pegging, of course, is an obscure sexual practice in which women perform the more aggressive sexual act on men.',
+    "I've been an outspoken anti-porn advocate since I was like sixteen years old.",
 ]
 
 
@@ -65,12 +66,14 @@ SHITPOSTS = {
 
 *Does that sound soulless? True soullessness is depriving people of the choices they require because you’re more interested in patting yourself on the back by inventing rights than by incentivizing the creation of goods and services. In health care, we could use a lot less virtue signaling and a lot less government. Or we could just read Senator Sanders’s tweets while we wait in line for a government-sponsored surgery — dying, presumably, in a decrepit chair.''',
         '''New York Magazine’s Jesse Singal, wrote that “free markets are good at some things and terrible at others and it’s silly to view them as ends rather than means.” That’s untrue. Free markets are expressions of individual autonomy, and therefore ends to be pursued in themselves.''',
+        "By objectification of women, do you mean that there are actual standards of beauty and that there are many people in popular culture who we have been told are supposed to be seen as beautiful who are not objectively beautiful? Obviously that's true. Obviously that's true. If you polled men on whether Lizzo is beautiful--and I say Lizzo is not by any classical definition a beautiful person--that does not mean that that is objectification of women, that just means that there is a standard called beauty and it has meaning."
     ],
     'COVID':[
         "And then, there are people in the United States that are pushing for mask mandates on children. The data that they are using are extraordinarily skimpy--in fact, they are essentially nonexistent. You're hearing the CDC say things like 'maybe the delta variant does more damage to kids,' but no information they have presented publicly that there is more damange being done to kids... and the reason we are being told that they damage kids is because they can't scare the adults enough. If we cannot scare the adults enough, we're going to have to mask up the kids.",
         "We are being told that if we don't mask our children, that if we don't mask ourselves, that if we don't initiate social distancing measures again and shut down business again, that COVID is going to kill us all",
     ],
     'SEX': [
+        "I've been an outspoken anti-porn advocate since I was like sixteen years old.",
         'Pegging, of course, is an obscure sexual practice in which women perform the more aggressive sexual act on men.',
         "My only real concern is that the women involved -- who apparently require a \"bucket and a mop\" -- get the medical care they require. My doctor wife's differential diagnosis: bacterial vaginosis, yeast infection, or trichomonis."
     ],
@@ -262,7 +265,7 @@ class BSBot():
 
 
 
-[^More ^About ^Ben ](https://np.reddit.com/r/AuthoritarianMoment/wiki/index) ^| [^Feedback ^& ^Discussion: ^r/AuthoritarianMoment ](https://np.reddit.com/r/AuthoritarianMoment) ^| [^Opt ^Out ](https://np.reddit.com/r/AuthoritarianMoment/comments/olk6r2/click_here_to_optout_of_uthebenshapirobot/)
+[^Opt ^Out ](https://np.reddit.com/r/AuthoritarianMoment/comments/olk6r2/click_here_to_optout_of_uthebenshapirobot/)
 """
 
 
@@ -399,7 +402,7 @@ class BSBot():
         elif message_type == 'REAL':
             message = 'Yup, all of the quotes and excerpts this bot posts that are explicitly attributed to Ben Shapiro are real. It is hard to believe people take him seriously.'
         elif message_type == 'IS_GRIFTER':
-            message = 'He is absolutely a grifter. See the wiki link in the footer for more information.'
+            message = 'He is absolutely a grifter.'
         elif message_type == 'CUSTOM' and custom_message is not None:
             message = custom_message
         else:
