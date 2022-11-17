@@ -29,19 +29,12 @@ QUOTES = [
     "This is what the radical feminist movement was proposing, remember? Women need a man the way a fish needs a bicycle... unless it turns out that they're little fish, then you might need another fish around to help take care of things.",
         '''Let’s say your life depended on the following choice today: you must obtain either an affordable chair or an affordable X-ray. Which would you choose to obtain? Obviously, you’d choose the chair. That’s because there are many types of chair, produced by scores of different companies and widely distributed. You could buy a $15 folding chair or a $1,000 antique without the slightest difficulty. By contrast, to obtain an X-ray you’d have to work with your insurance company, wait for an appointment, and then haggle over price. Why? Because the medical market is far more regulated — thanks to the widespread perception that health care is a “right” — than the chair market. Does that sound soulless? True soullessness is depriving people of the choices they require because you’re more interested in patting yourself on the back by inventing rights than by incentivizing the creation of goods and services. In health care, we could use a lot less virtue signaling and a lot less government. Or we could just read Senator Sanders’s tweets while we wait in line for a government-sponsored surgery — dying, presumably, in a decrepit chair.''',
     'Pegging, of course, is an obscure sexual practice in which women perform the more aggressive sexual act on men.',
+    "Heterosexual marriage is the cornerstone of society; homosexual marriage offers no benefits to society.",
 ]
 
 
 TEMPLATE = "I saw that you mentioned Ben Shapiro. In case some of you don't know, Ben Shapiro is a grifter and a hack. If you find anything he's said compelling, you should keep in mind he also says things like this:\n\n>{QUOTE}"
 
-P_WORD_MESSAGE =  """
-Please don't use the P-word, this isn't an NSFW post.
-Remember when Ben Shapiro recited the lyrics to WAP on his show and was too uncomfortable to say "pussy" so he said "p-word?" Then, when everyone made fun of him, he doubled down and tweeted:
-
-
->
-
-"""
 
 GOOD_BOT_REPLIES = [
     "Take a bullet for ya babe.",
@@ -70,11 +63,15 @@ SHITPOSTS = {
         "And then, there are people in the United States that are pushing for mask mandates on children. The data that they are using are extraordinarily skimpy--in fact, they are essentially nonexistent. You're hearing the CDC say things like 'maybe the delta variant does more damage to kids,' but no information they have presented publicly that there is more damage being done to kids... and the reason we are being told that they damage kids is because they can't scare the adults enough. If we cannot scare the adults enough, we're going to have to mask up the kids.",
         "We are being told that if we don't mask our children, that if we don't mask ourselves, that if we don't initiate social distancing measures again and shut down business again, that COVID is going to kill us all",
     ],
+    "GAY MARRIAGE": [
+        "Heterosexual marriage is the cornerstone of society; homosexual marriage offers no benefits to society.",
+        "If you vote in favor of the idea that society has an obligation to recognize male-male or female-female dyads in the same way that society has an obligation to recognize male-female, you should not be in the Republican party.",
+    ],
     'SEX': [
         "By objectification of women, do you mean that there are actual standards of beauty and that there are many people in popular culture who we have been told are supposed to be seen as beautiful who are not objectively beautiful? Obviously that's true. Obviously that's true. If you polled men on whether Lizzo is beautiful--and I say Lizzo is not by any classical definition a beautiful person--that does not mean that that is objectification of women, that just means that there is a standard called beauty and it has meaning.",
         "I've been an outspoken anti-porn advocate since I was like sixteen years old.",
         'Pegging, of course, is an obscure sexual practice in which women perform the more aggressive sexual act on men.',
-        "My only real concern is that the women involved -- who apparently require a \"bucket and a mop\" -- get the medical care they require. My doctor wife's differential diagnosis: bacterial vaginosis, yeast infection, or trichomonis."
+        "My only real concern is that the women involved -- who apparently require a \"bucket and a mop\" -- get the medical care they require. My doctor wife's differential diagnosis: bacterial vaginosis, yeast infection, or trichomonis.",
     ],
     'CLIMATE': [
         'Renewable energy: dumbest phrase since climate change. See the first law of thermodynamics, dumbass.',
