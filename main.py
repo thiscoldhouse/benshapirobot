@@ -14,7 +14,12 @@ logging.basicConfig(filename="comments.log")
 # ------------------------ content ----------------------------- #
 
 QUOTES = [
-    '',
+    'that he thinks the unpaid volunteers who moderate his site for free are the \"landed gentry\"',
+    'that [he edits comments that criticize him](https://www.theverge.com/2016/11/23/13739026/reddit-ceo-steve-huffman-edit-comments)',
+    'that he is removing [memes of people criticizing him](https://www.reddit.com/r/ModCoord/comments/14fafpp/the_admins_in_charge_of_demodded_subreddits_are/)',
+    'that he is profiting from [millions of dollars of free labor from volunteer moderators](https://ojs.aaai.org/index.php/ICWSM/article/view/19318/19090)',
+    'that he claimed the Apollo dev, who, unlike Reddit, actually knows how to make apps, was [blackmailing him](https://www.businessinsider.com/reddit-client-apollo-shut-down-after-talks-got-ugly-2023-6). Read more [here](https://www.reveddit.com/v/apolloapp/comments/14dkqrw/i_want_to_debunk_reddits_claims_and_talk_about/)'
+
     # 'Israelis like to build. Arabs like to bomb crap and live in open sewage. This is not a difficult issue.',
     # "If you wear your pants below your butt, don't bend the brim of your cap, and have an EBT card, 0% chance you will ever be a success in life.",
     # "Since nobody seems willing to state the obvious due to cultural sensitivity... I’ll say it: rap isn’t music",
@@ -35,7 +40,7 @@ QUOTES = [
 
 
 #TEMPLATE = "I saw that you mentioned Ben Shapiro. In case some of you don't know, Ben Shapiro is a grifter and a hack. If you find anything he's said compelling, you should keep in mind he also says things like this:\n\n>{QUOTE}"
-TEMPLATE = "I saw that you mentioned Steve Huffman. In case some of you don't know, Steve Huffman is a grifter and a hack. If you find anything he's said compelling, you should keep in mind he thinks the unpaid volunteers who moderate his site for free are the \"landed gentry\". {QUOTE}"
+TEMPLATE = "I saw that you mentioned Steve Huffman. In case some of you don't know, Steve Huffman is a grifter and a hack. If you find anything he's said compelling, you should keep in mind {QUOTE}."
 # also says things like this:\n\n>{QUOTE}"
 
 GOOD_BOT_REPLIES = [
@@ -222,7 +227,9 @@ SHITPOSTS = {
     ]
 }
 
-SHITPOST_THRESHOLD = 4
+#SHITPOST_THRESHOLD = 4
+SHITPOST_THRESHOLD = 20
+
 
 
 ################################## actual code #################################
