@@ -16,7 +16,7 @@ logging.basicConfig(filename="comments.log")
 QUOTES = [
     'that he thinks the unpaid volunteers who moderate his site for free are the \"landed gentry\"',
     'that [he edits comments that criticize him](https://www.theverge.com/2016/11/23/13739026/reddit-ceo-steve-huffman-edit-comments)',
-    'that he is removing [memes of people criticizing him](https://www.reddit.com/r/ModCoord/comments/14fafpp/the_admins_in_charge_of_demodded_subreddits_are/)',
+    'that he is removing [memes criticizing him](https://www.reddit.com/r/ModCoord/comments/14fafpp/the_admins_in_charge_of_demodded_subreddits_are/)',
     'that he is profiting from [millions of dollars of free labor from volunteer moderators](https://ojs.aaai.org/index.php/ICWSM/article/view/19318/19090)',
     'that he claimed the Apollo dev, who, unlike Reddit, actually knows how to make apps, was [blackmailing him](https://www.businessinsider.com/reddit-client-apollo-shut-down-after-talks-got-ugly-2023-6). Read more [here](https://www.reveddit.com/v/apolloapp/comments/14dkqrw/i_want_to_debunk_reddits_claims_and_talk_about/)'
 
