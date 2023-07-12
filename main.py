@@ -256,7 +256,6 @@ class BSBot():
         options = f'{options}, etc.'
         return f"""
 *****
-**thebenshapirobot will be joining the Reddit blackout**. For more information, see: https://np.reddit.com/r/AuthoritarianMoment/comments/143108t/thebenshapirobot_and_this_sub_will_be_joining_the/
 
 ^(I'm a bot. My purpose is to counteract online radicalization. You can summon me by tagging thebenshapirobot. Options: {options})
 
